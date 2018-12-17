@@ -1,3 +1,5 @@
+var editorWorld = undefined;
+
 var editorScene = new Phaser.Class({
 
     // it extends Phaser.Scene
@@ -11,7 +13,7 @@ var editorScene = new Phaser.Class({
 
         // calling the scene, assigning it "PlayGame" key
         Phaser.Scene.call(this, {key: "EditorScene"});
-        console.log("hi");
+        editorWorld = new World();
 
     },
 
@@ -40,7 +42,7 @@ var editorScene = new Phaser.Class({
             if(bodiesUnderPointer.length == 0){
 
                 // create a crate
-                this.matter.add.sprite(pointer.x, pointer.y, "platform");
+                editorWorld.store(this.matter.add.sprite(pointer.x, pointer.y, "platform"));
             }
 
             // this is where I wanted to remove the crate. Unfortunately I did not find a quick way to delete the Sprite
@@ -50,6 +52,11 @@ var editorScene = new Phaser.Class({
                 this.matter.world.remove(bodiesUnderPointer[0])
             }
         }, this);
+    },
+
+    updateWorld: function(world) {
+        console.log(this.scene.children);
+        world.gameObjects = this.scene.children;
     }
 });
 

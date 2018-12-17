@@ -22,16 +22,13 @@ window.onload = function(){
         // game background color
         backgroundColor: "#000044",
 
-        // index.html -> div game
-        //parent: "game",
-
         // physics settings
         physics: {
 
             // we are using matter.js engine
             default: "matter",
             matter: {
-                debug: true
+                //debug: true
             }
         },
 

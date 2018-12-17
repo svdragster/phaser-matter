@@ -41,7 +41,11 @@ var editorUiScene = new Phaser.Class({
         );
 
         this.input.keyboard.on('keydown', function (event) {
-            ref.setSelection(event.key)
+            ref.setSelection(event.key);
+        });
+
+        this.input.keyboard.on('keydown_ENTER', function (event) {
+            ref.startPlaying();
         });
 
         this.input.on("pointerdown", function(pointer){
@@ -53,6 +57,11 @@ var editorUiScene = new Phaser.Class({
         if (!(key in keySelectionMap)) return;
         this.curSelection = keySelectionMap[key];
         this.selectionText.text = 'Selected: ' + this.curSelection;
+    },
+
+    startPlaying: function() {
+        editorScene = this.scene.stop("EditorScene");
+        var playGameScene = this.scene.start("PlayGameScene", editorWorld);
     }
 
 
