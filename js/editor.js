@@ -1,46 +1,4 @@
-var game;
-
-// to be executed once the window loads
-window.onload = function(){
-
-    // game configuration object
-    var gameConfig = {
-
-        // render type
-        type: Phaser.CANVAS,
-
-        // game width, in pixels
-        width: 840,
-
-        // game height, in pixels
-        height: 680,
-
-        // game background color
-        backgroundColor: "#000044",
-
-        // index.html -> div game
-        //parent: "game",
-
-        // physics settings
-        physics: {
-
-            // we are using matter.js engine
-            default: "matter",
-            matter: {
-                debug: true
-            }
-        },
-
-        // array with all game scenes, just one: playGame
-        scene: [playGame]
-    };
-
-    // game constructor
-    game = new Phaser.Game(gameConfig);
-}
-
-// playGame Class
-var playGame = new Phaser.Class({
+var editorScene = new Phaser.Class({
 
     // it extends Phaser.Scene
     Extends: Phaser.Scene,
@@ -52,7 +10,7 @@ var playGame = new Phaser.Class({
     function playGame(){
 
         // calling the scene, assigning it "PlayGame" key
-        Phaser.Scene.call(this, {key: "PlayGame"});
+        Phaser.Scene.call(this, {key: "EditorScene"});
     },
 
     // function to be executed when the scene is loading
