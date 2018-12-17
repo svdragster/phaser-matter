@@ -7,18 +7,19 @@ var editorScene = new Phaser.Class({
     initialize:
 
     // constructor
-    function playGame(){
+    function editorScene() {
 
         // calling the scene, assigning it "PlayGame" key
         Phaser.Scene.call(this, {key: "EditorScene"});
+        console.log("hi");
+
     },
 
     // function to be executed when the scene is loading
     preload: function(){
-
+        this.scene.launch("EditorUIScene");
         // loading crate image
-        this.load.image("crate", "assets/crate.png");
-        this.load.image("platform", "assets/platform.png");
+        loadAssetsOnce(this);
     },
 
     // function to be executed once the scene has been created
@@ -39,7 +40,7 @@ var editorScene = new Phaser.Class({
             if(bodiesUnderPointer.length == 0){
 
                 // create a crate
-                this.matter.add.sprite(pointer.x, pointer.y, "crate");
+                this.matter.add.sprite(pointer.x, pointer.y, "platform");
             }
 
             // this is where I wanted to remove the crate. Unfortunately I did not find a quick way to delete the Sprite
@@ -51,3 +52,5 @@ var editorScene = new Phaser.Class({
         }, this);
     }
 });
+
+//export default editorScene;
