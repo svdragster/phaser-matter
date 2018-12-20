@@ -21,8 +21,17 @@ var playGame = new Phaser.Class({
     },
 
     // function to be executed once the scene has been created
-    create: function(world) {
+    create: function(params) {
+        var world       = params[0];
+        var parentScene = params[1];
+        var ref = this;
         console.log(world);
+        console.log(parentScene);
+
+        this.createInputListeners(parentScene);
+
+
+
         // setting Matter world bounds
         this.matter.world.setBounds(0, -200, game.config.width, game.config.height + 200);
 
@@ -48,7 +57,20 @@ var playGame = new Phaser.Class({
         }, this);
     },
 
+    createInputListeners: function(parentScene) {
+        var ref = this;
+        if (parentScene != undefined && parentScene.key == "EditorUIScene") {
+            this.input.keyboard.on('keydown_ENTER', function (event) {
+                ref.stopPlaying();
+            });
+        }
+    },
+
     loadWorld: function(world) {
         console.log(world);
+    },
+
+    stopPlaying: function() {
+        var editorScene = this.scene.start("EditorScene");
     }
 });

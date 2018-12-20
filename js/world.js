@@ -4,6 +4,10 @@ class WorldLoader {
 
 class WorldSaver {
 
+    constructor(world) {
+
+    }
+
 }
 
 class World {
@@ -19,6 +23,10 @@ class World {
         this.gameObjects.push(gameObj);
         console.log(this.gameObjects);
         return gameObj;
+    }
+
+    toJson() {
+        return JSON.stringify(this);
     }
 
 }

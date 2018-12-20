@@ -48,6 +48,11 @@ var editorUiScene = new Phaser.Class({
             ref.startPlaying();
         });
 
+        this.input.keyboard.on('keydown_J', function (event) {
+            console.log(editorWorld);
+            console.log(editorWorld.toJson());
+        });
+
         this.input.on("pointerdown", function(pointer){
 
         }, this);
@@ -60,8 +65,8 @@ var editorUiScene = new Phaser.Class({
     },
 
     startPlaying: function() {
-        editorScene = this.scene.stop("EditorScene");
-        var playGameScene = this.scene.start("PlayGameScene", editorWorld);
+        var editorScene = this.scene.stop("EditorScene");
+        var playGameScene = this.scene.start("PlayGameScene", [editorWorld, editorScene]);
     }
 
 
