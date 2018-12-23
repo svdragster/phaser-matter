@@ -25,7 +25,7 @@ var playGame = new Phaser.Class({
         var world       = params[0];
         var parentScene = params[1];
         var ref = this;
-        console.log(world);
+        console.log(world.toJson());
         console.log(parentScene);
 
         this.createInputListeners(parentScene);

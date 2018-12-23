@@ -2,12 +2,8 @@ class WorldLoader {
 
 }
 
-class WorldSaver {
-
-    constructor(world) {
-
-    }
-
+function getWorldFromJson(jsonStr) {
+    return Object.assign(new World, JSON.parse(jsonStr))
 }
 
 class World {
@@ -28,5 +24,4 @@ class World {
     toJson() {
         return JSON.stringify(this);
     }
-
 }

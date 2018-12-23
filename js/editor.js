@@ -42,7 +42,9 @@ var editorScene = new Phaser.Class({
             if(bodiesUnderPointer.length == 0){
 
                 // create a crate
-                editorWorld.store(this.matter.add.sprite(pointer.x, pointer.y, "platform"));
+                var sprite = this.matter.add.sprite(pointer.x, pointer.y, "platform")
+                console.log(sprite);
+                editorWorld.store(sprite);
             }
 
             // this is where I wanted to remove the crate. Unfortunately I did not find a quick way to delete the Sprite
