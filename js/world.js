@@ -22,6 +22,9 @@ class World {
     }
 
     toJson() {
-        return JSON.stringify(this);
+        //return JSON.stringify(this);
+        this.gameObjects.forEach(function(obj) {
+            obj.toJSON();
+        });
     }
 }
