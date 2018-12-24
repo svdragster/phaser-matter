@@ -40,15 +40,15 @@ var editorUiScene = new Phaser.Class({
             { font: '16px Verdana', fill: '#FFFFFF' }
         );
 
-        this.input.keyboard.on('keydown', function (event) {
+        this.input.keyboard.on('keydown', function(event) {
             ref.setSelection(event.key);
         });
 
-        this.input.keyboard.on('keydown_ENTER', function (event) {
+        this.input.keyboard.on('keydown_ENTER', function(event) {
             ref.startPlaying();
         });
 
-        this.input.keyboard.on('keydown_J', function (event) {
+        this.input.keyboard.on('keydown_J', function(event) {
             console.log(editorWorld);
             console.log(editorWorld.toJson());
         });

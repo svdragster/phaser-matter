@@ -28,7 +28,7 @@ window.onload = function(){
             // we are using matter.js engine
             default: "matter",
             matter: {
-                //debug: true
+                debug: true
             }
         },
 
@@ -46,4 +46,5 @@ function loadAssetsOnce(ref) {
     console.log("Loading assets");
     ref.load.image("crate", "assets/crate.png");
     ref.load.image("platform", "assets/platform.png");
+    ref.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
 }

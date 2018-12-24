@@ -29,8 +29,7 @@ var playGame = new Phaser.Class({
         console.log(parentScene);
 
         this.createInputListeners(parentScene);
-
-
+        this.initPhysics();
 
         // setting Matter world bounds
         this.matter.world.setBounds(0, -200, game.config.width, game.config.height + 200);
@@ -64,6 +63,57 @@ var playGame = new Phaser.Class({
                 ref.stopPlaying();
             });
         }
+
+        this.input.keyboard.on('keydown_A', function(event) {
+            ref.player.keyA = true;
+        });
+        this.input.keyboard.on('keydown_D', function(event) {
+            ref.player.keyD = true;
+        });
+        this.input.keyboard.on('keyup_A', function(event) {
+            ref.player.keyA = false;
+        });
+        this.input.keyboard.on('keyup_D', function(event) {
+            ref.player.keyD = false;
+        });
+        this.input.keyboard.on('keydown_SPACE', function(event) {
+            console.log(ref.player);
+            if (Math.abs(ref.player.body.velocity.y) <= 0.5)
+                ref.player.setVelocityY(-10);
+        });
+    },
+
+    initPhysics: function() {
+        var sensorOnGround = Phaser.Physics.Matter.Matter.Bodies
+                                .circle(0, 90, 24, { isSensor: true, label: 'onGround' });
+
+        var rect = Phaser.Physics.Matter.Matter.Bodies.rectangle(00, 80, 32, 48);
+
+        this.matter.world.on('collisionstart', function (event) {
+            console.log("hi");
+        });
+        this.matter.world.on('collisionend', function (event) {
+            console.log("stop");
+        });
+
+        this.sensors = Phaser.Physics.Matter.Matter.Body.create({
+            parts: [ rect, sensorOnGround ]/*,
+            inertia: Infinity*/
+        });
+        this.player = this.matter.add.sprite(400, 100, 'dude');
+        this.player.setExistingBody(this.sensors);
+    },
+
+    update: function() {
+        this.updatePlayer();
+    },
+
+    updatePlayer: function() {
+        this.player.setAngle(0);
+        if (this.player.keyA)
+            this.player.setVelocityX(-5);
+        if (this.player.keyD)
+            this.player.setVelocityX(5);
     },
 
     loadWorld: function(world) {
