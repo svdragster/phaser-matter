@@ -65,8 +65,8 @@ var editorUiScene = new Phaser.Class({
     },
 
     startPlaying: function() {
-        var editorScene = this.scene.stop("EditorScene");
         var playGameScene = this.scene.start("PlayGameScene", [editorWorld, editorScene]);
+        var editorScene = this.scene.stop("EditorScene");
     }
 
 

@@ -30,7 +30,7 @@ var editorScene = new Phaser.Class({
         // setting Matter world bounds
         this.matter.world.setBounds(0, -200, game.config.width, game.config.height + 200);
 
-        this.matter.add.image(400, 550, 'platform', null, { isStatic: true });
+        editorWorld.store(this.matter.add.sprite(400, 550, 'platform', null, { isStatic: true }));
 
         // waiting for user input
         this.input.on("pointerdown", function(pointer){
@@ -43,7 +43,11 @@ var editorScene = new Phaser.Class({
 
                 // create a crate
                 var sprite = this.matter.add.sprite(pointer.x, pointer.y, "platform")
-                console.log(sprite);
+                //var mySprites = [];
+                //mySprites.push(sprite);
+                //console.log(mySprites);
+                //console.log(sprite.toJSON());
+                //console.log(JSON.stringify(mySprites));
                 editorWorld.store(sprite);
             }
 

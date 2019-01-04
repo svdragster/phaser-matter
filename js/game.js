@@ -26,7 +26,19 @@ var playGame = new Phaser.Class({
         var parentScene = params[1];
         var ref = this;
         console.log(world.toJson());
-        console.log(parentScene);
+        var copiedWorld = getWorldFromJson(world.toJson());
+        console.log("COPIED WORLD");
+        //console.log(JSON.parse(world.toJson()));
+        console.log(copiedWorld);
+        console.log("SSDFSDFSDF");
+        for (const obj of copiedWorld.gameObjects) {
+            console.log(obj);
+            //obj.world = this.matter.world;
+            var newSprite = this.matter.add.sprite(0, 0, obj.textureKey);
+            var newObj = Object.assign(newSprite/*new Phaser.Physics.Matter.Sprite(this.matter.world, 0, 0, obj.textureKey)*/, obj);
+            console.log(newObj);
+        }
+        //console.log(parentScene);
 
         this.createInputListeners(parentScene);
         this.initPhysics();
@@ -84,24 +96,26 @@ var playGame = new Phaser.Class({
     },
 
     initPhysics: function() {
+        this.maxPlayerSpeed = 5.0;
         var sensorOnGround = Phaser.Physics.Matter.Matter.Bodies
                                 .circle(0, 90, 24, { isSensor: true, label: 'onGround' });
 
         var rect = Phaser.Physics.Matter.Matter.Bodies.rectangle(00, 80, 32, 48);
 
         this.matter.world.on('collisionstart', function (event) {
-            console.log("hi");
+
         });
         this.matter.world.on('collisionend', function (event) {
-            console.log("stop");
+
         });
 
-        this.sensors = Phaser.Physics.Matter.Matter.Body.create({
+        /*this.sensors = Phaser.Physics.Matter.Matter.Body.create({
             parts: [ rect, sensorOnGround ]/*,
-            inertia: Infinity*/
-        });
+            inertia: Infinity* /
+        });*/
         this.player = this.matter.add.sprite(400, 100, 'dude');
-        this.player.setExistingBody(this.sensors);
+        this.player.velX = 0;
+        //this.player.setExistingBody(this.sensors);
     },
 
     update: function() {
@@ -110,10 +124,22 @@ var playGame = new Phaser.Class({
 
     updatePlayer: function() {
         this.player.setAngle(0);
-        if (this.player.keyA)
-            this.player.setVelocityX(-5);
-        if (this.player.keyD)
-            this.player.setVelocityX(5);
+        if (this.player.keyA) {
+            if (this.player.velX > 0) this.player.velX = 0;
+            this.player.velX -= 0.3;
+            this.player.velX *= 1.02;
+            if (this.player.velX < -this.maxPlayerSpeed)
+                this.player.velX = -this.maxPlayerSpeed;
+            this.player.setVelocityX(this.player.velX);
+        }
+        if (this.player.keyD) {
+            if (this.player.velX < 0) this.player.velX = 0;
+            this.player.velX += 0.3;
+            this.player.velX *= 1.02;
+            if (this.player.velX > this.maxPlayerSpeed)
+                this.player.velX = this.maxPlayerSpeed;
+            this.player.setVelocityX(this.player.velX);
+        }
     },
 
     loadWorld: function(world) {
